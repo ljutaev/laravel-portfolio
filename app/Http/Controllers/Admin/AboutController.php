@@ -56,15 +56,27 @@ class AboutController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string|max:2000',
             'image' => 'image|max:3000',
+            'resume' => 'mimes:pdf,csv,txt|max:10000',
         ]);
 
         $about = About::first();
 
+        $imagePath = handleUpload('image', $about);
+        $resumePath = handleUpload('resume', $about);
+       
+        About::updateOrCreate(
+            ['id' => $id],
+            [
+                'title' => $request->title,
+                'description' => $request->description,
+                'image' => (!empty($imagePath)) ? $imagePath : $about->image,
+                'resume' => (!empty($resumePath)) ? $resumePath : $about->resume,
+            ]
+        );
 
-
-        toastr()->success('Hero section updated successfully', 'Congratulations');
+        toastr()->success('About section updated successfully', 'Congratulations');
         return redirect()->back();
     }
 
@@ -74,5 +86,9 @@ class AboutController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function downloadResume() {
+        return response()->download(public_path(About::first()->resume));
     }
 }

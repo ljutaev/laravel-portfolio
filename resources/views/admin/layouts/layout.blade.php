@@ -92,46 +92,56 @@
     @endif
 
     <script>
-        jQuery(document).ready(function() {
-            jQuery('body').on('click', '.delete-item', function(e){
+        $(document).ready(function(){
+            // Csrf token
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            // sweet alert for delete
+            $('body').on('click', '.delete-item', function(e){
                 e.preventDefault();
-                var id = jQuery(this).data('id');
-                var url = jQuery(this).data('url');
+                let deleteUrl = $(this).attr('href');
+
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
                     icon: 'warning',
                     showCancelButton: true,
-                    confirmButtonColor: '#6777ef',
+                    confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
+                    }).then((result) => {
                     if (result.isConfirmed) {
-
-                        jQuery.ajax({
-                            url: url,
-                            type: 'POST',
-                            data: {
-                                "_token": "{{ csrf_token() }}",
-                                "_method": "DELETE",
-                            },
-                            success: function (data) {
-                                console.log(data);
-                                Swal.fire(
+                        $.ajax({
+                            type: 'DELETE',
+                            url: deleteUrl,
+                            success: function(data){
+                                if(data.status == 'error'){
+                                    Swal.fire(
+                                    'You can not delete!',
+                                    'This category contain items cant be deleted!',
+                                    'error'
+                                )
+                                }else {
+                                    Swal.fire(
                                     'Deleted!',
                                     'Your file has been deleted.',
                                     'success'
-                                ).then((result) => {
-                                    if (result.isConfirmed) {
-                                        window.location.reload();
-                                    }
-                                })
+                                    )
+                                    window.location.reload();
+                                }
+                            },
+                            error: function(xhr, status, error){
+                                console.log(error);
                             }
-                        });
+                        })
                     }
                 })
             })
-        });
+        })
     </script>
     @stack('scripts')
 </body>

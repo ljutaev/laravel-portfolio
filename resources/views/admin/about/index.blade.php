@@ -44,9 +44,21 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Content</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <textarea name="description" class="summernote">{{ $about->description }}</textarea>
+                                    <textarea name="description" class="summernote">{!! $about->description !!}</textarea>
                                 </div>
                             </div>
+
+                            @if ($about->resume)
+                            <div class="form-group row mb-4">
+                                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                                <div class="col-sm-12 col-md-7">
+                                <div>
+                                    <i class="fas fa-file-pdf" style="font-size: 100px;"></i>
+                                </div>
+                                <div class="mt-2">{{ $about->resume }}</div>
+                                </div>
+                            </div>
+                            @endif
 
                             <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Resume Upload</label>
@@ -72,3 +84,15 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+  <script>
+    $(document).ready(function(){
+        $('#image-preview').css({
+            'background-image': 'url("{{asset($about->image)}}")',
+            'background-size': 'cover',
+            'background-position': 'center center'
+        })
+    });
+  </script>
+@endpush
