@@ -10,6 +10,9 @@ use App\Models\TyperTitle;
 use App\Models\PortfolioItem;
 use App\Models\PortfolioSectionSetting;
 use App\Models\Category;
+use App\Models\SkillItem;
+use App\Models\SkillSectionSetting;
+use App\Models\Experience;
 
 class HomeController extends Controller
 {
@@ -25,6 +28,9 @@ class HomeController extends Controller
         $portfolioTitle = PortfolioSectionSetting::first();
         $portfolioCategories = Category::all();
         $portfolioItems = PortfolioItem::all();
+        $skill = SkillSectionSetting::first();
+        $skillItems = SkillItem::all();
+        $experience = Experience::first();
         
         return view('frontend.home', compact(
             'hero', 
@@ -34,6 +40,9 @@ class HomeController extends Controller
             'portfolioTitle',
             'portfolioCategories',
             'portfolioItems',
+            'skill',
+            'skillItems',
+            'experience',
         ));
     }
 

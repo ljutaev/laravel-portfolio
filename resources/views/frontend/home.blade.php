@@ -18,7 +18,7 @@
 <!-- Portfolio-Area-End -->
 
 <!-- Skills-Area-Start -->
-@include('frontend.sections.skills')
+@include('frontend.sections.skill')
 <!-- Skills-Area-End -->
 
 <!-- Experience-Area-Start -->
