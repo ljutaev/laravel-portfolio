@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\About;
 use App\Models\Hero;
@@ -15,6 +15,7 @@ use App\Models\SkillSectionSetting;
 use App\Models\Experience;
 use App\Models\BlogSectionSetting;
 use App\Models\Blog;
+use App\Models\Contact;
 
 
 class HomeController extends Controller
@@ -72,5 +73,23 @@ class HomeController extends Controller
         $previousPost = Blog::where('id', '<', $blog->id)->orderBy('id', 'desc')->first();
         $nextPost = Blog::where('id', '>', $blog->id)->orderBy('id', 'asc')->first();
         return view('frontend.blog-details', compact('blog', 'previousPost', 'nextPost'));
+    }
+
+    public function contact(Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required:max',
+            'message' => 'required',
+        ]);
+
+        Contact::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'subject' => $request->subject,
+            'message' => $request->message,
+        ]);
+
+        return response(['status' => 'success', 'message' => 'Mail Sended Successfully!']);
     }
 }

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SkillSectionSettingController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BlogSectionSettingController;
+use App\Http\Controllers\Admin\ContactController;
 
 
 /*
@@ -44,6 +45,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('portfolio-details/{id}', [HomeController::class, 'showPortfolio'])->name('show.portfolio');
+Route::post('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/blog', [HomeController::class, 'showBlog'])->name('show.blog');
 Route::get('/blog/{id}', [HomeController::class, 'showBlogItem'])->name('show.blog.item');
 
@@ -75,4 +77,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('blog-category', BlogCategoryController::class);
     Route::resource('blog', BlogController::class);
     Route::resource('blog-section-setting', BlogSectionSettingController::class);
+
+    Route::resource('contact', ContactController::class);
 });
