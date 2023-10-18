@@ -14,6 +14,9 @@ use App\Http\Controllers\Admin\TyperTitleController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SkillItemController;
 use App\Http\Controllers\Admin\SkillSectionSettingController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\BlogSectionSettingController;
 
 
 /*
@@ -29,17 +32,6 @@ use App\Http\Controllers\Admin\SkillSectionSettingController;
 
 Route::get('/', [HomeController::class, 'index' ])->name('home');
 
-Route::get('/blog', function () {
-    return view('frontend.blog');
-});
-
-Route::get('/blog-details', function () {
-    return view('frontend.blog-details');
-});
-
-Route::get('/portfolio-details', function () {
-    return view('frontend.portfolio-details');
-});
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -52,6 +44,12 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('portfolio-details/{id}', [HomeController::class, 'showPortfolio'])->name('show.portfolio');
+Route::get('/blog', [HomeController::class, 'showBlog'])->name('show.blog');
+Route::get('/blog/{id}', [HomeController::class, 'showBlogItem'])->name('show.blog.item');
+
+Route::get('/blog-details', function () {
+    return view('frontend.blog-details');
+});
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('hero', HeroController::class);
@@ -72,4 +70,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', 'as' => 'admin.'], 
     Route::resource('skill-section-setting', SkillSectionSettingController::class);
     Route::resource('skill-item', SkillItemController::class);
     Route::resource('experience', ExperienceController::class);
+
+    /** Blog **/
+    Route::resource('blog-category', BlogCategoryController::class);
+    Route::resource('blog', BlogController::class);
+    Route::resource('blog-section-setting', BlogSectionSettingController::class);
 });

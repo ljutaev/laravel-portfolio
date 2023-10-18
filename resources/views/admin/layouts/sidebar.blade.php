@@ -80,7 +80,7 @@
             </ul>
         </li>
 
-        <li class="{{setSidebarActive(['admin.experience.*'])}}"><a class="nav-link" href="{{route('admin.experience.index')}}"><i class="far fa-square"></i> <span>Experience</span></a></li>
+       {{--  <li class="{{setSidebarActive(['admin.experience.*'])}}"><a class="nav-link" href="{{route('admin.experience.index')}}"><i class="far fa-square"></i> <span>Experience</span></a></li>
 
         <li class="nav-item dropdown {{setSidebarActive([
             'admin.feedback.*',
@@ -91,7 +91,7 @@
               <li class="{{setSidebarActive(['admin.feedback.*'])}}"><a class="nav-link" href="{{route('admin.feedback.index')}}">Feedbacks</a></li>
               <li class="{{setSidebarActive(['admin.feedback-section-setting.*'])}}"><a class="nav-link" href="{{route('admin.feedback-section-setting.index')}}">Section Setting</a></li>
             </ul>
-        </li>
+        </li> --}}
 
         <li class="nav-item dropdown {{setSidebarActive([
             'admin.blog-category.*',
@@ -106,31 +106,12 @@
             </ul>
         </li>
 
-        <li class="nav-item dropdown {{setSidebarActive(['admin.contact-section-setting.*'])}}">
+        {{-- <li class="nav-item dropdown {{setSidebarActive(['admin.contact-section-setting.*'])}}">
             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Contact</span></a>
             <ul class="dropdown-menu" style="display: none;">
               <li class="{{setSidebarActive(['admin.contact-section-setting.*'])}}"><a class="nav-link" href="{{route('admin.contact-section-setting.index')}}">Section Setting</a></li>
             </ul>
-        </li>
-
-        <li class="nav-item dropdown {{setSidebarActive([
-         'admin.footer-social.*',
-         'admin.footer-info.*',
-         'admin.footer-contact-info.*',
-         'admin.footer-useful-links.*',
-         'admin.footer-help-links.*'
-         ])}}">
-            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i> <span>Footer</span></a>
-            <ul class="dropdown-menu" style="display: none;">
-              <li class="{{setSidebarActive(['admin.footer-social.*'])}}"><a class="nav-link" href="{{route('admin.footer-social.index')}}">Social Links</a></li>
-              <li class="{{setSidebarActive(['admin.footer-info.*'])}}"><a class="nav-link" href="{{route('admin.footer-info.index')}}">Footer Information</a></li>
-              <li class="{{setSidebarActive(['admin.footer-contact-info.*'])}}"><a class="nav-link" href="{{route('admin.footer-contact-info.index')}}">Footer Contact Info</a></li>
-              <li class="{{setSidebarActive(['admin.footer-useful-links.*'])}}"><a class="nav-link" href="{{route('admin.footer-useful-links.index')}}">Footer Useful Links</a></li>
-              <li class="{{setSidebarActive(['admin.footer-help-links.*'])}}"><a class="nav-link" href="{{route('admin.footer-help-links.index')}}">Footer Help Links</a></li>
-            </ul>
-        </li>
-        <li class="menu-header">Settings</li>
-        <li class="{{setSidebarActive(['admin.settings.*'])}}"><a class="nav-link" href="{{route('admin.settings.index')}}"><i class="far fa-square"></i> <span>Settings</span></a></li>
+        </li> --}}
         {{-- <li><a class="nav-link" href="blank.html"><i class="far fa-square"></i> <span>Blank Page</span></a></li> --}}
 
 

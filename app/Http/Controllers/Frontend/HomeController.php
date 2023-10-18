@@ -13,6 +13,9 @@ use App\Models\Category;
 use App\Models\SkillItem;
 use App\Models\SkillSectionSetting;
 use App\Models\Experience;
+use App\Models\BlogSectionSetting;
+use App\Models\Blog;
+
 
 class HomeController extends Controller
 {
@@ -30,7 +33,10 @@ class HomeController extends Controller
         $portfolioItems = PortfolioItem::all();
         $skill = SkillSectionSetting::first();
         $skillItems = SkillItem::all();
+
         $experience = Experience::first();
+        $blogTitle = BlogSectionSetting::first();
+        $blog = Blog::all();
         
         return view('frontend.home', compact(
             'hero', 
@@ -43,6 +49,8 @@ class HomeController extends Controller
             'skill',
             'skillItems',
             'experience',
+            'blogTitle',
+            'blog',
         ));
     }
 
@@ -50,5 +58,19 @@ class HomeController extends Controller
     {
         $portfolioItem = PortfolioItem::findOrFail($id);
         return view('frontend.portfolio-details', compact('portfolioItem'));
+    }
+
+    public function showBlog()
+    {
+        $posts = Blog::latest()->paginate(1);
+        return view('frontend.blog', compact('posts'));
+    }
+
+    public function showBlogItem($id)
+    {
+        $blog = Blog::findOrFail($id);
+        $previousPost = Blog::where('id', '<', $blog->id)->orderBy('id', 'desc')->first();
+        $nextPost = Blog::where('id', '>', $blog->id)->orderBy('id', 'asc')->first();
+        return view('frontend.blog-details', compact('blog', 'previousPost', 'nextPost'));
     }
 }
